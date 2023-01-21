@@ -1,0 +1,5 @@
+yt-dlp
+psutil
+tqdm
+mergedeep
+numpy

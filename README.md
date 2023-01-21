@@ -58,5 +58,5 @@ Videos will be saved using this name format:
 | `--rm-cache`  | `-r` | Delete the yt-dlp cache on start.                                                                                                                               |
 | `--backwards` | `-b` | Reverse all playlists and download in backwards order.                                                                                                          |
 | `--threads`   |      | How many download processes to use (threads). Default is how many CPU cores you have. You will want to find a good value that doesn't overload your connection. |
-| `--daemon`    | `-d` | Run in daemon mode. Disables progress bars and prints output that's good for journalctl.                                                                        |
+| `--daemon`    | `-d` | Run in daemon mode. Disables progress bars and prints output that's good for journalctl. Daemon mode isn't implemented yet.                                                                        |
  

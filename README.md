@@ -2,7 +2,7 @@
 
 _Automated YouTube Archival._
 
-A wrapper for youtube-dl that is for keeping very large amounts of data from YouTube in sync. It's designed to be simple and easy to use.
+A wrapper for youtube-dl used for keeping very large amounts of data from YouTube in sync. It's designed to be simple and easy to use.
 
 I have a single, very large playlist that I add any videos I like to. On my NAS is a service uses this program to download new videos (see [Example systemd Service.md]).
 

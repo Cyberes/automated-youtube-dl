@@ -11,10 +11,10 @@ I have a single, very large playlist that I add any videos I like to. On my NAS 
 - Uses yt-dlp instead of youtube-dl.
 - Skip videos that are already downloaded which makes checking a playlist for new videos quick because youtube-dl doesn't have to fetch the entire playlist.
 - Automatically update yt-dlp on launch.
-- Downloads the videos in a format suitable for archiving:
+- Download the videos in a format suitable for archiving:
     - Complex `format` that balances video quality and file size.
     - Embedding of metadata: chapters, thumbnail, english subtitles (automatic too), and YouTube metadata.
-- Logs progress to a file.
+- Log progress to a file.
 - Simple display using `tqdm`.
 - Limit the size of the downloaded videos.
 - Parallel downloads.

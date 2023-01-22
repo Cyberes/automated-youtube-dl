@@ -18,6 +18,7 @@ I have a single, very large playlist that I add any videos I like to. On my NAS 
 - Simple display using `tqdm`.
 - Limit the size of the downloaded videos.
 - Parallel downloads.
+- Daemon mode for running as a system service.
 
 ### Installation
 
@@ -30,6 +31,12 @@ pip install -r requirements.txt
 
 `./downloader.py <URL to download or path of a file containing the URLs of the videos to download> <output directory>`
 
+To run as a daemon, do:
+
+`/usr/bin/python3 /home/user/automated-youtube-dl/downloader.py --daemon --sleep 60 <url> <ouput folder>`
+
+`--sleep` is how many minutes to sleep after completing all downloads.
+
 #### Folder Structure
 
 ```
@@ -37,11 +44,11 @@ Output Directory/
 ├─ logs/
 │  ├─ youtube_dl-<UNIX timestamp>.log
 │  ├─ youtube_dl-errors-<UNIX timestamp>.log
-├─ download-archive.txt
+├─ download-archive.log
 ├─ Example Video.mkv
 ```
 
-`download-archive.txt` contains the videos that have already been downloaded. You can import videos you've already downloaded by adding their ID to this file.
+`download-archive.log` contains the videos that have already been downloaded. You can import videos you've already downloaded by adding their ID to this file.
 
 Videos will be saved using this name format:
 
@@ -51,12 +58,12 @@ Videos will be saved using this name format:
 
 #### Arguments
 
-| Argument      | Flag | Help                                                                                                                                                            |
-|---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `--no-update` | `-n` | Don\'t update yt-dlp at launch.                                                                                                                                 |
-| `--max-size`  |      | Max allowed size of a video in MB. Default: 1100.                                                                                                               |
-| `--rm-cache`  | `-r` | Delete the yt-dlp cache on start.                                                                                                                               |
-| `--backwards` | `-b` | Reverse all playlists and download in backwards order.                                                                                                          |
+| Argument      | Flag | Help                                                         |
+| ------------- | ---- | ------------------------------------------------------------ |
+| `--no-update` | `-n` | Don\'t update yt-dlp at launch.                              |
+| `--max-size`  |      | Max allowed size of a video in MB. Default: 1100.            |
+| `--rm-cache`  | `-r` | Delete the yt-dlp cache on start.                            |
 | `--threads`   |      | How many download processes to use (threads). Default is how many CPU cores you have. You will want to find a good value that doesn't overload your connection. |
-| `--daemon`    | `-d` | Run in daemon mode. Disables progress bars. Daemon mode isn't implemented yet.                                                                        |
- 
+| `--daemon`    | `-d` | Run in daemon mode. Disables progress bars sleeps for the amount of time specified in --sleep. |
+| `--sleep`     |      | How many minutes to sleep when in daemon mode.               |
+| `--silent`    | `-s` | Don't print any error messages to the console.               |

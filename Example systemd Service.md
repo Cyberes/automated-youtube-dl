@@ -3,13 +3,7 @@
 `/home/user/youtubedl-daemon.sh`
 ```bash
 #!/bin/bash
-SLEEP_TIME="60m"
-while true; do
-        /usr/bin/python3 /home/user/automated-youtube-dl/downloader.py --daemon "https://www.youtube.com/playlist?list=example12345" "/mnt/nfs/archive/YouTube/Example Playlist/"
-        echo -e "\nSleeping for $SLEEP_TIME"
-        sleep $SLEEP_TIME
-        echo -e "\n"
-done
+/usr/bin/python3 /home/user/automated-youtube-dl/downloader.py --daemon --silence-errors --sleep 60 "https://www.youtube.com/playlist?list=example12345" "/mnt/nfs/archive/YouTube/Example Playlist/"
 ```
 
 

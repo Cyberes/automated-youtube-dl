@@ -22,17 +22,41 @@ def restart_program():
     os.execl(python, python, *sys.argv)
 
 
-def setup_file_logger(name, log_file, level=logging.INFO, format_str: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', filemode='a'):
+def setup_file_logger(name, log_file, level=logging.INFO, format_str: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', filemode='a', no_console: bool = True):
     formatter = logging.Formatter(format_str)
-    handler = logging.FileHandler(log_file, mode=filemode)
-    handler.setFormatter(formatter)
 
     logger = logging.getLogger(name)
     logger.setLevel(level)
+    handler = logging.FileHandler(log_file, mode=filemode)
+    handler.setLevel(level)
+    handler.setFormatter(formatter)
     logger.addHandler(handler)
 
     # Silence console logging
-    console = logging.StreamHandler(sys.stdout)
-    console.setLevel(100)
+    # if no_console:
+    #     console = logging.StreamHandler()
+    #     console.setLevel(100)
 
     return logger
+
+
+def get_silent_logger(name, level=logging.INFO, format_str: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', silent: bool = True):
+    logger = logging.getLogger(name)
+    console = logging.StreamHandler()
+    console.setFormatter(logging.Formatter(format_str))
+    logger.addHandler(console)
+    if silent:
+        logger.setLevel(100)
+    else:
+        logger.setLevel(level)
+    return logger
+
+
+def remove_duplicates_from_playlist(entries):
+    videos = []
+    s = set()
+    for p, video in enumerate(entries):
+        if video['id'] not in s:
+            videos.append(video)
+            s.add(video['id'])
+    return videos

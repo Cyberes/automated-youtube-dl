@@ -80,7 +80,7 @@ def download_video(args) -> dict:
     ylogger = ytdl_logger(setup_file_logger(video['id'], kwargs['output_dir'] / f"[{video['id']}].log"))
     kwargs['ydl_opts']['logger'] = ylogger
     yt_dlp = ydl.YDL(kwargs['ydl_opts'])
-    output_dict = {'downloaded_video_id': None, 'blacklist_video_id': None, 'video_error_logger_msg': [], 'status_msg': [], 'logger_msg': []}  # empty object
+    output_dict = {'downloaded_video_id': None, 'video_id': video['id'], 'video_error_logger_msg': [], 'status_msg': [], 'logger_msg': []}  # empty object
     start_time = time.time()
 
     try:

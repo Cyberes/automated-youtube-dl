@@ -77,6 +77,8 @@ if args.daemon:
 log_dir = args.output / 'logs'
 create_directories(args.output, log_dir)
 
+# TODO: log file rotation https://www.blog.pythonlibrary.org/2014/02/11/python-how-to-create-rotating-logs/
+# TODO: log to one file instead of one for each run
 file_logger = setup_file_logger('youtube_dl', log_dir / f'youtube_dl-{str(int(log_time))}.log', level=logging.INFO)
 video_error_logger = setup_file_logger('youtube_dl_video_errors', log_dir / f'youtube_dl-errors-{int(log_time)}.log', level=logging.INFO)
 logger = get_silent_logger('yt-dl', silent=not args.daemon)
@@ -229,7 +231,10 @@ while True:
 
         if len(download_queue):  # Don't mess with multiprocessing if all videos are already downloaded
             with Pool(processes=args.threads) as pool:
-                status_bar.set_description_str('=' * os.get_terminal_size()[0])
+                if sys.stdout.isatty():
+                    # Doesn't work if not connected to a terminal:
+                    # OSError: [Errno 25] Inappropriate ioctl for device
+                    status_bar.set_description_str('=' * os.get_terminal_size()[0])
                 logger.info('Starting downloads...')
                 for result in pool.imap_unordered(download_video,
                                                   ((video, {
@@ -251,8 +256,11 @@ while True:
                                 logger.error(line)
                             else:
                                 playlist_bar.write(line)
+
                     if len(result['video_error_logger_msg']):
                         errored_videos += 1
+                        if args.silence_errors and args.daemon:
+                            logger.error(f"{result['video_id']} failed due to error.")
 
                     # for line in result['status_msg']:
                     #     playlist_bar.write(line)

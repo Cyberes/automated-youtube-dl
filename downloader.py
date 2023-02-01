@@ -61,12 +61,15 @@ if not re.match(urlRegex, str(args.file)):
 else:
     url_list = [args.file]
 
-if not args.no_update:
-    print('Checking if yt-dlp needs to be updated...')
-    updated = ydl.update_ytdlp()
-    if updated:
-        print('Restarting program...')
-        restart_program()
+
+def do_update():
+    if not args.no_update:
+        print('Checking if yt-dlp needs to be updated...')
+        updated = ydl.update_ytdlp()
+        if updated:
+            print('Restarting program...')
+            restart_program()
+
 
 if args.rm_cache:
     subprocess.run('yt-dlp --rm-cache-dir', shell=True)
@@ -205,6 +208,7 @@ if not args.daemon:
         ])
 
 while True:
+    do_update()
     for i, target_url in tqdm(enumerate(url_list), total=len(url_list), position=0, desc='Inputs', disable=args.daemon):
         logger.info('Fetching playlist...')
         playlist = yt_dlp.playlist_contents(target_url)

@@ -177,7 +177,7 @@ ydl_opts = {
     'subtitlesformat': 'vtt',
     'subtitleslangs': ['en'],
     'writeautomaticsub': True,
-    # 'writedescription': True,
+    'writedescription': True,
     'ignoreerrors': True,
     'continuedl': False,
     'addmetadata': True,

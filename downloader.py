@@ -37,6 +37,7 @@ parser.add_argument('--threads', type=int, default=cpu_count(), help='How many d
 parser.add_argument('--daemon', '-d', action='store_true', help="Run in daemon mode. Disables progress bars sleeps for the amount of time specified in --sleep.")
 parser.add_argument('--sleep', type=float, default=60, help='How many minutes to sleep when in daemon mode.')
 parser.add_argument('--silence-errors', '-s', action='store_true', help="Don't print any error messages to the console.")
+parser.add_argument('--ignore-downloaded', '-i', action='store_true', help='Ignore videos that have been already downloaded and let YouTubeDL handle everything.')
 args = parser.parse_args()
 
 if args.threads <= 0:
@@ -111,7 +112,7 @@ def load_existing_videos():
 
 
 downloaded_videos = load_existing_videos()
-print('Found', len(downloaded_videos), 'downloaded videos.')
+print('Found', len(downloaded_videos), f'downloaded videos. {"Ignoring." if args.ignore_downloaded else ""}')
 
 # Create this object AFTER reading in the download_archive.
 download_archive_logger = setup_file_logger('download_archive', download_archive_file, format_str='%(message)s')
@@ -226,12 +227,15 @@ while True:
 
         # Remove already downloaded files from the to-do list.
         download_queue = []
-        s = set()
+        existing_video_ids = set()
         for p, video in enumerate(playlist['entries']):
-            if video['id'] not in downloaded_videos and video['id'] not in s:
+            if not args.ignore_downloaded and video['id'] not in existing_video_ids:
                 download_queue.append(video)
-                s.add(video['id'])
-        playlist_bar.update(len(downloaded_videos))
+                existing_video_ids.add(video['id'])
+            elif args.ignore_downloaded:
+                download_queue.append(video)
+        if not args.ignore_downloaded:
+            playlist_bar.update(len(downloaded_videos))
 
         if len(download_queue):  # Don't mess with multiprocessing if all videos are already downloaded
             with Pool(processes=args.threads) as pool:

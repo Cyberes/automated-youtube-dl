@@ -37,7 +37,7 @@ parser.add_argument('--threads', type=int, default=cpu_count(), help='How many d
 parser.add_argument('--daemon', '-d', action='store_true', help="Run in daemon mode. Disables progress bars sleeps for the amount of time specified in --sleep.")
 parser.add_argument('--sleep', type=float, default=60, help='How many minutes to sleep when in daemon mode.')
 parser.add_argument('--silence-errors', '-s', action='store_true', help="Don't print any error messages to the console.")
-parser.add_argument('--ignore-downloaded', '-i', action='store_true', help='Ignore videos that have been already downloaded and let YouTubeDL handle everything.')
+parser.add_argument('--ignore-downloaded', '-i', action='store_true', help='Ignore videos that have been already downloaded and let youtube-dl handle everything.')
 args = parser.parse_args()
 
 if args.threads <= 0:

@@ -53,17 +53,18 @@ Output Directory/
 Videos will be saved using this name format:
 
 ```
-%(title)s --- %(uploader)s --- %(uploader_id)s --- %(id)s
+[%(id)s] [%(title)s] [%(uploader)s] [%(uploader_id)s]
 ```
 
 #### Arguments
 
-| Argument      | Flag | Help                                                         |
-| ------------- | ---- | ------------------------------------------------------------ |
-| `--no-update` | `-n` | Don\'t update yt-dlp at launch.                              |
-| `--max-size`  |      | Max allowed size of a video in MB. Default: 1100.            |
-| `--rm-cache`  | `-r` | Delete the yt-dlp cache on start.                            |
-| `--threads`   |      | How many download processes to use (threads). Default is how many CPU cores you have. You will want to find a good value that doesn't overload your connection. |
-| `--daemon`    | `-d` | Run in daemon mode. Disables progress bars sleeps for the amount of time specified in --sleep. |
-| `--sleep`     |      | How many minutes to sleep when in daemon mode.               |
-| `--silent`    | `-s` | Don't print any error messages to the console.               |
+| Argument              | Flag | Help                                                         |
+| --------------------- | ---- | ------------------------------------------------------------ |
+| `--no-update`         | `-n` | Don\'t update yt-dlp at launch.                              |
+| `--max-size`          |      | Max allowed size of a video in MB. Default: 1100.            |
+| `--rm-cache`          | `-r` | Delete the yt-dlp cache on start.                            |
+| `--threads`           |      | How many download processes to use (threads). Default is how many CPU cores you have. You will want to find a good value that doesn't overload your connection. |
+| `--daemon`            | `-d` | Run in daemon mode. Disables progress bars sleeps for the amount of time specified in --sleep. |
+| `--sleep`             |      | How many minutes to sleep when in daemon mode.               |
+| `--silent`            | `-s` | Don't print any error messages to the console.               |
+| `--ignore-downloaded` | `-i` | Ignore videos that have been already downloaded and let youtube-dl handle everything. Videos will not be re-downloaded, but metadata will be updated. |

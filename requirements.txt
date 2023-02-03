@@ -3,3 +3,6 @@ psutil
 tqdm
 mergedeep
 numpy
+pyyaml
+appdirs
+phantomjs

@@ -23,7 +23,7 @@ I have a single, very large playlist that I add any videos I like to. On my NAS 
 ### Installation
 
 ```bash
-sudo apt update && sudo apt install ffmpeg atomicparsley
+sudo apt update && sudo apt install ffmpeg atomicparsley phantomjs
 pip install -r requirements.txt
 ```
 

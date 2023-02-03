@@ -1,4 +1,6 @@
 .idea
+targets.*
+!targets.sample.*
 
 # ---> Python
 # Byte-compiled / optimized / DLL files

@@ -29,13 +29,15 @@ class YDL:
                 sizes.append(d)
         return tuple(sizes)
 
-    def playlist_contents(self, url: str) -> dict:
+    def playlist_contents(self, url: str) -> Union[dict, bool]:
         ydl_opts = merge({
             'extract_flat': True,
             'skip_download': True
         }, self.ydl_opts)
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.sanitize_info(ydl.extract_info(url, download=False))
+            if not info:
+                return False
             entries = []
             if info['_type'] == 'playlist':
                 if 'entries' in info.keys():
@@ -53,13 +55,22 @@ class YDL:
                 'entries': entries,
             }
 
-    def __call__(self, *args, **kwargs):
-        return self.yt_dlp.download(*args, **kwargs)
-
     # def filter_filesize(self, info, *, incomplete):
     #     duration = info.get('duration')
     #     if duration and duration < 60:
     #         return 'The video is too short'
+
+    def extract_info(self, *args, **kwargs):
+        return self.yt_dlp.extract_info(*args, **kwargs)
+
+    def prepare_filename(self, *args, **kwargs):
+        return self.yt_dlp.prepare_filename(*args, **kwargs)
+
+    def process_info(self, *args, **kwargs):
+        return self.yt_dlp.process_info(*args, **kwargs)
+
+    def __call__(self, *args, **kwargs):
+        return self.yt_dlp.download(*args, **kwargs)
 
 
 def update_ytdlp():

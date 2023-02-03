@@ -22,7 +22,7 @@ def restart_program():
     os.execl(python, python, *sys.argv)
 
 
-def setup_file_logger(name, log_file, level=logging.INFO, format_str: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', filemode='a', no_console: bool = True):
+def setup_file_logger(name, log_file, level=logging.INFO, format_str: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', filemode='a'):
     formatter = logging.Formatter(format_str)
 
     logger = logging.getLogger(name)
